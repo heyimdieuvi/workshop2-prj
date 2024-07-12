@@ -77,7 +77,7 @@ public class MainController extends HttpServlet {
                         break; // Avoid forwarding twice
                     case "logout":
                         logout(request, response, session);
-                        break; // Avoid forwarding twice
+                        break; 
                     default:
                         request.getRequestDispatcher(HOME).forward(request, response);
                         break;
@@ -109,15 +109,14 @@ public class MainController extends HttpServlet {
                 
                 HttpSession session = request.getSession();
                 session.setAttribute("account", checkAcc);
-                
+                session.setAttribute("role", checkAcc.getRoleInSystem());
                 Cookie a = new Cookie("acc", checkAcc.getAccount());
                 Cookie p = new Cookie("pass", checkAcc.getPass());
                 a.setMaxAge(50);
                 p.setMaxAge(50);
                 response.addCookie(p);
                 response.addCookie(a);
-                //session.setAttribute("loginRole", checkAcc.getRoleInSystem());
-                response.sendRedirect(ADMIN);
+//                response.sendRedirect(ADMIN);
             } else if (checkAcc != null && checkAcc.isIsUse() == false) {
                 message = "This account is deactive!!!";
                 request.setAttribute("message", message);
@@ -137,7 +136,7 @@ public class MainController extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
-        response.sendRedirect(LOGIN);
+        showMain(request, response);
     }
 
     private void showMain(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

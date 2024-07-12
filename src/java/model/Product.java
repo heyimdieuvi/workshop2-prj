@@ -4,13 +4,14 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author ADMIN
  */
-public class Product {
+public class Product implements Serializable{
     private String productId;
     private String productName;
     private String productImage;

@@ -4,6 +4,7 @@
  */
 package dao;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ import model.Category;
 import model.Product;
 import utilities.ConnectDB;
 
-public class ProductDAO {
+public class ProductDAO implements Serializable{
 
     private CategoryDAO cateDao = new CategoryDAO();
     private AccountDAO accDao = new AccountDAO();

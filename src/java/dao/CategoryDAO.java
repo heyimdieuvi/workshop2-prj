@@ -4,6 +4,7 @@
  */
 package dao;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,14 +16,15 @@ import java.util.logging.Logger;
 import model.Category;
 import utilities.ConnectDB;
 
-public class CategoryDAO {
+public class CategoryDAO implements Accessible<Category>, Serializable{
 
     private static final String INSERT_CATEGORY = "INSERT INTO [dbo].[categories] (categoryName, memo) VALUES (?,?);";
     private static final String UPDATE_CATEGORY = "UPDATE categories SET categoryName = ?, memo = ? WHERE typeId = ?;";
     private static final String DELETE_CATEGORY = "DELETE FROM categories WHERE typeId = ?;";
     private static final String GET_CATEGORY = "SELECT * FROM categories WHERE typeId = ?;";
     private static final String GET_ALL_CATEGORIES = "SELECT * FROM categories;";
-
+    
+    @Override
     public int insertRec(Category category) {
         int result = 0;
         try (Connection conn = new ConnectDB().getConnection(); 
@@ -35,7 +37,8 @@ public class CategoryDAO {
         }
         return result;
     }
-
+    
+    @Override
     public int updateRec(Category category) {
         int result = 0;
         try (Connection conn = new ConnectDB().getConnection(); 
@@ -49,7 +52,7 @@ public class CategoryDAO {
         }
         return result;
     }
-
+    
     public int deleteRec(int id) {
         int res = 0;
         try (Connection conn = new ConnectDB().getConnection(); 
@@ -81,7 +84,8 @@ public class CategoryDAO {
         }
         return currentCategory;
     }
-
+    
+    @Override
     public List<Category> listAll() {
         List<Category> list = new ArrayList<>();
         try (Connection conn = new ConnectDB().getConnection(); 
@@ -98,5 +102,15 @@ public class CategoryDAO {
             e.printStackTrace();
         }
         return list;
+    }
+
+    @Override
+    public int deleteRec(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Category getObjectById(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

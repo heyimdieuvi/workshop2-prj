@@ -4,11 +4,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author ADMIN
  */
-public class Category {
+public class Category implements Serializable{
     private int typeId;
     private String categoryName;
     private String memo;

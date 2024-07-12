@@ -3,16 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/FPT/Summer2024/PRJ301/WorkShop1%20-%20Copy/web/META-INF/context.xml</file>
-            <file>file:/D:/FPT/Summer2024/PRJ301/WorkShop1%20-%20Copy/src/java/control/CategoryManagement.java</file>
             <file>file:/D:/FPT/Summer2024/PRJ301/WorkShop1%20-%20Copy/web/WEB-INF/web.xml</file>
-            <file>file:/D:/FPT/Summer2024/PRJ301/WorkShop1%20-%20Copy/src/java/control/ProductManagement.java</file>
-            <file>file:/D:/FPT/Summer2024/PRJ301/WorkShop1%20-%20Copy/src/java/filter/HomeFilter.java</file>
-            <file>file:/D:/FPT/Summer2024/PRJ301/WorkShop1%20-%20Copy/web/product-list.jsp</file>
-            <file>file:/D:/FPT/Summer2024/PRJ301/WorkShop1%20-%20Copy/web/admin-home.jsp</file>
-            <file>file:/D:/FPT/Summer2024/PRJ301/WorkShop1%20-%20Copy/web/Home.jsp</file>
+            <file>file:/D:/FPT/Summer2024/PRJ301/WorkShop1%20-%20Copy/src/java/control/MainController.java</file>
+            <file>file:/D:/FPT/Summer2024/PRJ301/WorkShop1%20-%20Copy/src/java/control/Login.java</file>
             <file>file:/D:/FPT/Summer2024/PRJ301/WorkShop1%20-%20Copy/src/java/control/AdminController.java</file>
-            <file>file:/D:/FPT/Summer2024/PRJ301/WorkShop1%20-%20Copy/src/java/control/AccountManagement.java</file>
+            <file>file:/D:/FPT/Summer2024/PRJ301/WorkShop1%20-%20Copy/src/java/filter/HomeFilter.java</file>
         </group>
     </open-files>
 </project-private>

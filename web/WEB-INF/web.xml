@@ -27,7 +27,8 @@
     <welcome-file-list>
         <welcome-file>main</welcome-file>
     </welcome-file-list>
-    <filter>
+
+    <!--    <filter>
         <filter-name>HomeFilter</filter-name>
         <filter-class>filter.HomeFilter</filter-class>
         <init-param>
@@ -42,8 +43,18 @@
         <url-pattern>/account-management/*</url-pattern>
         <url-pattern>/product-management/*</url-pattern>
         <url-pattern>/category-management/*</url-pattern>
+    </filter-mapping>-->
+    <filter>
+        <filter-name>HomeFilter</filter-name>
+        <filter-class>filter.HomeFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>HomeFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+        <url-pattern>/account-management/*</url-pattern>
+        <url-pattern>/product-management/*</url-pattern>
+        <url-pattern>/category-management/*</url-pattern>
     </filter-mapping>
-    
     <servlet>
         <servlet-name>ProductManagement</servlet-name>
         <servlet-class>control.ProductManagement</servlet-class>

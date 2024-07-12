@@ -11,10 +11,10 @@ import java.io.StringWriter;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -108,39 +108,31 @@ public class HomeFilter implements Filter {
         
         doBeforeProcessing(request, response);
         
-        HttpServletRequest req = (HttpServletRequest)request;
-        HttpServletResponse resp = (HttpServletResponse)response;
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse resp = (HttpServletResponse) response;
         HttpSession session = req.getSession(false);
-//        if(session == null || (Account)session.getAttribute("account")){
-//            RequestDispatcher rd = req.getRequestDispatcher("main");
-//            rd.forward(request, response);
-//        } 
-       
-        Throwable problem = null;
-        try {
-            
-            chain.doFilter(request, response);
-        } catch (Throwable t) {
-            // If an exception is thrown somewhere down the filter chain,
-            // we still want to execute our after processing, and then
-            // rethrow the problem after that.
-            problem = t;
-            t.printStackTrace();
-        }
         
-        doAfterProcessing(request, response);
-
-        // If there was a problem, we want to rethrow it if it is
-        // a known type, otherwise log it.
-        if (problem != null) {
-            if (problem instanceof ServletException) {
-                throw (ServletException) problem;
+        String uri = req.getServletPath();
+        boolean isLoggedIn = (session != null && session.getAttribute("role") != null);
+        Integer userRole = (isLoggedIn) ? (Integer) session.getAttribute("role") : 0;
+        
+        //Check author
+        if(uri.startsWith("/admin") || uri.startsWith("/account-management")) {
+            if(userRole != 1) {
+                req.getRequestDispatcher("main").forward(request, response);
+                return;
             }
-            if (problem instanceof IOException) {
-                throw (IOException) problem;
-            }
-            sendProcessingError(problem, response);
         }
+        if(uri.startsWith("/product-management") || uri.startsWith("/category-management")) {
+            if (userRole != 1 && userRole != 2) {
+                req.getRequestDispatcher("main").forward(request, response);
+                return;
+            }
+        }
+        chain.doFilter(request, response);
+        
+        
+        
     }
 
     /**

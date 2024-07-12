@@ -16,12 +16,13 @@ import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import model.Account;
 import utilities.ConnectDB;
+import java.io.Serializable;
 
 /**
  *
  * @author ADMIN
  */
-public class AccountDAO implements Accessible<Account> {
+public class AccountDAO implements Accessible<Account>, Serializable{
 
     private ServletContext sc;
     private static final String INSERT_ACCOUNT = "INSERT INTO [dbo].[accounts] (account, pass, lastName, firstName, birthday, gender, phone, isUse, roleInSystem) VALUES" + "(?,?,?,?,?,?,?,?,?);";
