@@ -18,11 +18,14 @@ import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Category;
 import model.Product;
+import org.apache.log4j.Logger;
 
 /**
  * MainController handles main application requests.
  */
 public class MainController extends HttpServlet {
+    
+    static final Logger LOGGER = Logger.getLogger(MainController.class);
 
     private CategoryDAO categoryDao = new CategoryDAO();
     private ProductDAO productDao = new ProductDAO();
@@ -118,6 +121,7 @@ public class MainController extends HttpServlet {
                 p.setMaxAge(50);
                 response.addCookie(p);
                 response.addCookie(a);
+                LOGGER.info("Login Success!!!");
                if(checkAcc.getRoleInSystem() == 1 || checkAcc.getRoleInSystem() == 2) {
                    request.getRequestDispatcher("admin").forward(request, response);
                } else {
@@ -127,10 +131,12 @@ public class MainController extends HttpServlet {
                 message = "This account is deactive!!!";
                 request.setAttribute("message", message);
                 request.getRequestDispatcher(LOGIN).forward(request, response);
+                LOGGER.info("Account is deactive!!!");
             } else {
                 message = "Wrong email or password!!!";
                 request.setAttribute("message", message);
                 request.getRequestDispatcher(LOGIN).forward(request, response);
+                LOGGER.info("Wrong email or password!!!");
             }
         } catch (Exception e) {
             e.printStackTrace();

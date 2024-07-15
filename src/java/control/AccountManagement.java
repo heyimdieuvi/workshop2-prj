@@ -5,6 +5,7 @@ import dao.CategoryDAO;
 import dao.ProductDAO;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -85,7 +86,12 @@ public class AccountManagement extends HttpServlet {
 
         } catch (ClassNotFoundException ex) {
             System.out.println("This Error is in Account Servlet" + ex.getMessage());
-        }
+        } catch (SQLException e) {
+            if(e.getSQLState().contains("PRIMARY KEY constraint")){
+                request.setAttribute("message", "This account is exist!!!");
+                request.getRequestDispatcher("account-form.jsp").forward(request, response);
+            }
+        } 
     }
 
     private void showListAccount(HttpServletRequest request, HttpServletResponse response)
@@ -117,7 +123,7 @@ public class AccountManagement extends HttpServlet {
     }
 
     private void insertAccount(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException {
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
         String account = request.getParameter("account");
         String pass = request.getParameter("pass");
         String lastName = request.getParameter("lastName");

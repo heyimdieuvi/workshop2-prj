@@ -24,6 +24,10 @@
         <param-name>dbPort</param-name>
         <param-value>1433</param-value>
     </context-param>
+    <context-param>
+        <param-name>log4j-config-location</param-name>
+        <param-value>WEB-INF/log4j.properties</param-value>
+    </context-param>
     <welcome-file-list>
         <welcome-file>main</welcome-file>
     </welcome-file-list>
@@ -50,6 +54,10 @@
         <error-code>404</error-code>
         <location>/error.jsp</location>
     </error-page>
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>listener.ContextListener</listener-class>
+    </listener>
     <servlet>
         <servlet-name>ProductManagement</servlet-name>
         <servlet-class>control.ProductManagement</servlet-class>
