@@ -35,28 +35,41 @@ public class AdminController extends HttpServlet {
     private static final String PRODUCT = "product-management";
     private static final String CATEGORY = "category-management";
 
-      protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
+        String url = ERROR;
         try {
-            HttpSession session = request.getSession(false); // Retrieve existing session, if any
+            HttpSession session = request.getSession(false);
             if (action != null) {
                 switch (action) {
                     case "logout":
                         logout(request, response, session);
-                        return; 
+                        return;
+                    case "account-management":
+                        url = ACCOUNT;
+                        break;
+                    case "product-management":
+                        url = PRODUCT;
+                        break;
+                    case "category-management":
+                        url = CATEGORY;
+                        break;
                     default:
-                        showMain(request, response, session);                        break;
+                        showMain(request, response);
+                        break;
                 }
+                request.getRequestDispatcher(url).forward(request, response);
             } else {
-                showMain(request, response, session);
+                showMain(request, response);
             }
         } catch (Exception e) {
             e.printStackTrace(); // Log the error
-            request.setAttribute("errorMessage", e.getMessage());
-            request.getRequestDispatcher(ERROR).forward(request, response);
-        }
+        } 
+//        finally {
+//            request.getRequestDispatcher(url).forward(request, response);
+//        }
     }
 
     @Override
@@ -71,16 +84,17 @@ public class AdminController extends HttpServlet {
         processRequest(request, response);
     }
 
-    private void showMain(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws ServletException, IOException {
+    private void showMain(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Category> listCategories = cateDao.listAll();
         request.setAttribute("listCategories", listCategories);
         List<Product> listProducts = productDao.listAll();
-        request.setAttribute("listProducts", listProducts); 
+        request.setAttribute("listProducts", listProducts);
         request.getRequestDispatcher(HOME).forward(request, response);
     }
 
     private void logout(HttpServletRequest request, HttpServletResponse response, HttpSession session)
             throws ServletException, IOException {
+        session.removeAttribute("account");
         session.invalidate();
         response.sendRedirect(LOGIN);
     }

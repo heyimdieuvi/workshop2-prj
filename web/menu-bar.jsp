@@ -21,11 +21,11 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
                 <c:choose>
-                    <c:when test="${not empty sessionScope.account}">
-                    <a class="navbar-brand font-weight-bold" href="admin">Shoppie</a>
+                    <c:when test="${not empty sessionScope.account and (sessionScope.role == 1 or sessionScope.role == 2)}">
+                        <a class="navbar-brand font-weight-bold" href="admin">Shoppie</a>
                     </c:when>
                     <c:otherwise>
-                    <a class="navbar-brand font-weight-bold" href="main">Shoppie</a>    
+                        <a class="navbar-brand font-weight-bold" href="main">Shoppie</a>    
                     </c:otherwise>
                 </c:choose>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,16 +35,42 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                     <ul class="navbar-nav m-auto">
                         <c:choose>
-                            <c:when test="${not empty sessionScope.account}">
+                            <c:when test="${not empty sessionScope.account and sessionScope.role == 1}">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="account-management">Manager Account</a>
+                                    <a class="nav-link" href="admin?action=account-management">Manager Account</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="category-management">Manager Category</a>
+                                    <a class="nav-link" href="admin?action=category-management">Manager Category</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="product-management">Manager Product</a>
+                                    <a class="nav-link" href="admin?action=product-management">Manager Product</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Hello ${sessionScope.account.firstName}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-success btn-sm ml-3" href="main?action=logout">
+                                        <i class="fa fa-sign-out"></i> Log Out
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:when test="${not empty sessionScope.account and sessionScope.role == 2}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="admin?action=category-management">Manager Category</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="admin?action=product-management">Manager Product</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Hello ${sessionScope.account.firstName}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-success btn-sm ml-3" href="main?action=logout">
+                                        <i class="fa fa-sign-out"></i> Log Out
+                                    </a>
+                                </li>
+                            </c:when>
+                                <c:when test="${not empty sessionScope.account and sessionScope.role == 3}">
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Hello ${sessionScope.account.firstName}</a>
                                 </li>

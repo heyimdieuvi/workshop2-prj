@@ -48,7 +48,7 @@ public class AccountDAO implements Accessible<Account>, Serializable{
 
             result = st.executeUpdate();
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.getMessage();
         }
         return result;
     }
@@ -68,7 +68,7 @@ public class AccountDAO implements Accessible<Account>, Serializable{
             st.setString(9, acc.getAccount());
             result = st.executeUpdate();
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.getMessage();
         }
         return result;
     }
@@ -80,7 +80,7 @@ public class AccountDAO implements Accessible<Account>, Serializable{
             st.setString(1, id);
             res = st.executeUpdate();
         } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+            ex.getMessage();
         }
         return res;
     }

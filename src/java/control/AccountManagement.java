@@ -33,12 +33,6 @@ public class AccountManagement extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
         try {
-            HttpSession session = request.getSession(false);
-            if (session == null) {
-                response.sendRedirect("login.jsp");
-                return;
-            }
-
             if (action != null) {
                 switch (action) {
                     case "new":
@@ -72,25 +66,21 @@ public class AccountManagement extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action");
         try {
-            HttpSession session = request.getSession(false);
-            if ((Account) session.getAttribute("account") != null) {
-                if (action != null) {
-                    switch (action) {
-                        case "insert":
-                            insertAccount(request, response);
-                            break;
-                        case "update":
-                            updateAccount(request, response);
-                            break;
-                        default:
-                            request.getRequestDispatcher(ERROR).forward(request, response);
-                            break;
-                    }
-                } else {
-                    showListAccount(request, response);
+
+            if (action != null) {
+                switch (action) {
+                    case "insert":
+                        insertAccount(request, response);
+                        break;
+                    case "update":
+                        updateAccount(request, response);
+                        break;
+                    default:
+                        request.getRequestDispatcher(ERROR).forward(request, response);
+                        break;
                 }
             } else {
-                request.getRequestDispatcher(LOGIN).forward(request, response);
+                showListAccount(request, response);
             }
 
         } catch (ClassNotFoundException ex) {

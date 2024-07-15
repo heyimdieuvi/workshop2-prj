@@ -49,6 +49,8 @@ public class MainController extends HttpServlet {
                     case "logout":
                         logout(request, response, session);
                         break; // Avoid forwarding twice
+                    case "info":
+                        
                     default:
                         request.getRequestDispatcher(url).forward(request, response);
                         break;
@@ -116,7 +118,11 @@ public class MainController extends HttpServlet {
                 p.setMaxAge(50);
                 response.addCookie(p);
                 response.addCookie(a);
-//                response.sendRedirect(ADMIN);
+               if(checkAcc.getRoleInSystem() == 1 || checkAcc.getRoleInSystem() == 2) {
+                   request.getRequestDispatcher("admin").forward(request, response);
+               } else {
+                   showMain(request, response);
+               }
             } else if (checkAcc != null && checkAcc.isIsUse() == false) {
                 message = "This account is deactive!!!";
                 request.setAttribute("message", message);

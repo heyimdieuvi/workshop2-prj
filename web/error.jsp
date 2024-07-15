@@ -4,6 +4,7 @@
     Author     : ADMIN
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -30,7 +31,7 @@
                     <div class="col-md-12 text-center">
                         <span class="display-1 d-block">404</span>
                         <div class="font-weight-bold mb-2 lead">Sorry! Not Found!</div>
-                        <a href="main" class="btn btn-link">Back to Home</a>
+                        <a href="<%=request.getContextPath()%>/main" class="btn btn-link">Back to Home</a>
                     </div>
                 </div>
             </div>
