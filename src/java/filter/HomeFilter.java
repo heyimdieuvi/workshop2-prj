@@ -43,9 +43,9 @@ public class HomeFilter implements Filter {
         HttpSession session = req.getSession(false);
         String uri = req.getServletPath();
 
-        if (uri.contains(".jsp")) {
-            req.getRequestDispatcher("error.jsp").forward(request, response);
-        }
+//        if (uri.contains(".jsp")) {
+//            req.getRequestDispatcher("error.jsp").forward(request, response);
+//        }
         chain.doFilter(request, response);
     }
 

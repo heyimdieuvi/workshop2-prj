@@ -6,6 +6,7 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib tagdir="/WEB-INF/tags/" prefix="myLib" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -53,6 +54,7 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Product ID</th>
                             <th>Product Name</th>
                             <th>Product Image</th>
@@ -66,26 +68,10 @@
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <c:forEach var="product" items="${requestScope.listProducts}"> 
-                            <tr>
-                                <td><c:out value="${product.productId}"/></td>
-                                <td><c:out value="${product.productName}"/></td>
-                                <td><img src="${product.productImage}" alt="img"/></td>
-                                <td><p class="brief"><c:out value="${product.brief}"/></p></td>
-                                <td><c:out value="${product.postedDate}"/></td>
-                                <td><c:out value="${product.type.categoryName}"/></td>
-                                <td><c:out value="${product.account.account}"/></td>
-                                <td><c:out value="${product.unit}"/></td>
-                                <td><c:out value="${product.price}"/></td>
-                                <td><c:out value="${product.discount}"/></td>
-                                <td>
-                                    <a class="btn btn-info" href="product-management?action=edit&productId=<c:out value='${product.productId}' />">Edit</a>
-                                    <a class="btn btn-danger" href="product-management?action=delete&productId=<c:out value='${product.productId}' />">Delete</a>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </tbody>
+                    <myLib:myDataGrid dataSource="DBCon"
+                                      sql="SELECT * FROM products"
+                                      action1="product-management?action=edit&productId="
+                                      action2="product-management?action=delete&productId="/>
                 </table>
             </div>
         </div>
