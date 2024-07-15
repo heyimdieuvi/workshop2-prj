@@ -22,8 +22,9 @@ import javax.servlet.http.HttpSession;
  *
  * @author ADMIN
  */
+    
 public class HomeFilter implements Filter {
-
+    
     private static final boolean debug = true;
 
     // The filter configuration object we are associated with.  If
@@ -33,7 +34,8 @@ public class HomeFilter implements Filter {
 
     public HomeFilter() {
     }
-
+    
+    //show 404 error when user type ".jsp or .html"
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
@@ -43,9 +45,9 @@ public class HomeFilter implements Filter {
         HttpSession session = req.getSession(false);
         String uri = req.getServletPath();
 
-//        if (uri.contains(".jsp")) {
-//            req.getRequestDispatcher("error.jsp").forward(request, response);
-//        }
+        if (uri.contains(".jsp") || uri.contains(".html")) {
+            req.getRequestDispatcher("error.jsp").forward(request, response);
+        }
         chain.doFilter(request, response);
     }
 

@@ -29,7 +29,7 @@
     <sql:setDataSource dataSource="${dataSource}" var="con"/>
 </c:if>
 
-//create dynamic data source to connect to DB
+<!--//create dynamic data source to connect to DB-->
 <c:if test="${not empty con}">
     <sql:query dataSource="${con}" var="rs">
         ${sql}
@@ -39,10 +39,10 @@
             </c:forEach>
         </c:if>
     </sql:query>
-    
-    //create table body depend on query
-    //print list of products, categories, accounts(?)
-    
+
+    <!--  create table body depend on query
+        print list of products, categories, accounts(?)
+    -->
     <c:if test="${not empty rs}">
         <tbody>
             <c:set var="count" value="0"/>
@@ -51,15 +51,25 @@
                 <tr>
                     <td>${count}</td>
                     <c:forEach var="colValue" items="${rows}" varStatus="status">
+
                         <c:choose>
+
                             <c:when test="${rs.columnNames[status.index] == 'productId'}">
                                 <c:set var="productId" value="${colValue}"/>
                                 <td>${colValue}</td>
                             </c:when>
+
                             <c:when test="${rs.columnNames[status.index] == 'typeId'}">
                                 <c:set var="typeId" value="${colValue}"/>
                                 <td>${colValue}</td>
                             </c:when>
+                                
+                            <c:when test="${rs.columnNames[status.index] == 'typeId'}">
+                                <c:forEach var="col" items="${rs.rowsByIndex}">
+                                    <c:out value="${col['categoryName']}"/>
+                                </c:forEach>
+                            </c:when>
+
                             <c:when test="${rs.columnNames[status.index] == 'gender'}">
                                 <c:choose>
                                     <c:when test="${colValue == true}">
@@ -70,6 +80,7 @@
                                     </c:when>
                                 </c:choose>
                             </c:when>
+
                             <c:when test="${rs.columnNames[status.index] == 'isUse'}">
                                 <c:choose>
                                     <c:when test="${colValue == true}">
@@ -80,6 +91,7 @@
                                     </c:when>
                                 </c:choose>
                             </c:when>
+
                             <c:when test="${rs.columnNames[status.index] == 'productImage'}">
                                 <td><img src="${colValue}" alt="img"/></td>
                                 </c:when>
@@ -90,6 +102,7 @@
                                     <fmt:formatDate value="${colValue}" pattern="dd/MM/yyyy" var="formattedDate"/>
                                 <td>${formattedDate}</td>
                             </c:when>
+
                             <c:when test="${rs.columnNames[status.index] == 'roleInSystem'}">
                                 <c:choose>
                                     <c:when test="${colValue == 1}">
@@ -102,27 +115,29 @@
                                         <td>Customer</td>
                                     </c:otherwise>
                                 </c:choose>
-                            </c:when>   
+                            </c:when>
+
                             <c:otherwise>
                                 <td>${colValue}</td>
                             </c:otherwise>
                         </c:choose>
+
                     </c:forEach>
-                                
-                    <c:if test="${fn:contains(sql, 'products')}">
+                        
+                    <c:if test="${fn:contains(sql, 'FROM products')}">
                         <td>
                             <a class="btn btn-info" href="${action1}<c:out value='${productId}' />">Edit</a>
                             <a class="btn btn-danger" href="${action2}<c:out value='${productId}' />">Delete</a>
                         </td>
                     </c:if>
-                    <c:if test="${fn:contains(sql, 'categories')}">
+                    <c:if test="${fn:contains(sql, 'FROM categories')}">
                         <td>
                             <a class="btn btn-info" href="${action1}<c:out value='${typeId}' />">Edit</a>
                             <a class="btn btn-danger" href="${action2}<c:out value='${typeId}' />">Delete</a>
                         </td>
                     </c:if>
                 </tr>
-                
+
             </c:forEach>
         </tbody>
     </c:if>

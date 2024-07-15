@@ -57,10 +57,10 @@
                             <th>No</th>
                             <th>Product ID</th>
                             <th>Product Name</th>
+                            <th>Category</th>
                             <th>Product Image</th>
                             <th>Brief</th>
-                            <th>Posted Date</th>
-                            <th>Category</th>
+                            <th>Posted Date</th> 
                             <th>Account</th>
                             <th>Unit</th>
                             <th>Price</th>
@@ -69,7 +69,9 @@
                         </tr>
                     </thead>
                     <myLib:myDataGrid dataSource="DBCon"
-                                      sql="SELECT * FROM products"
+                                      sql="SELECT p.productId, p.productName, c.categoryName, p.productImage, p.brief, p.postedDate, p.account, p.unit, p.price, p.discount
+                                      FROM products p 
+                                      JOIN categories c ON p.typeId = c.typeId"
                                       action1="product-management?action=edit&productId="
                                       action2="product-management?action=delete&productId="/>
                 </table>
